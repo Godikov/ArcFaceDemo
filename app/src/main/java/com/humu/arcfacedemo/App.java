@@ -10,11 +10,11 @@ import com.humu.arcfacedemo.face.FaceDB;
 
 public class App extends Application {
 
-    private FaceDB mFaceDB;
-
     @Override
     public void onCreate() {
         super.onCreate();
-        mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
+
+        FaceDB mFaceDB = new FaceDB();
+
     }
 }

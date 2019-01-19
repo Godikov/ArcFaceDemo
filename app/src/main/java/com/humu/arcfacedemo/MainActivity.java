@@ -57,15 +57,23 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private TextView tv_age;
     private TextView tv_sex;
 
+    //人脸追踪版本信息
     AFT_FSDKVersion version = new AFT_FSDKVersion();
+    //人脸追踪引擎
     AFT_FSDKEngine engine = new AFT_FSDKEngine();
+    //年龄检测版本信息
     ASAE_FSDKVersion mAgeVersion = new ASAE_FSDKVersion();
+    //年龄检测引擎
     ASAE_FSDKEngine mAgeEngine = new ASAE_FSDKEngine();
+    //性别检测版本信息
     ASGE_FSDKVersion mGenderVersion = new ASGE_FSDKVersion();
+    //性别检测引擎
     ASGE_FSDKEngine mGenderEngine = new ASGE_FSDKEngine();
-    List<AFT_FSDKFace> result = new ArrayList<>();
-    List<ASAE_FSDKAge> ages = new ArrayList<>();
-    List<ASGE_FSDKGender> genders = new ArrayList<>();
+
+    //AFT_FSDKFace类用来保存检测到的人脸信息
+    List<AFT_FSDKFace> result = new ArrayList<>(); //人脸信息列表
+    List<ASAE_FSDKAge> ages = new ArrayList<>(); //年龄信息列表
+    List<ASGE_FSDKGender> genders = new ArrayList<>(); //性别信息列表
 
     byte[] mImageNV21 = null;
     private FRAbsLoop mFRAbsLoop;
@@ -204,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     public Object onPreview(byte[] data, int width, int height, int format, long timestamp) {
+        //输入的data数据为NV21格式（如Camera里NV21格式的preview数据），其中height不能为奇数，人脸跟踪返回结果保存在result。
         AFT_FSDKError err = engine.AFT_FSDK_FaceFeatureDetect(data, width, height, AFT_FSDKEngine.CP_PAF_NV21, result);
         if (mImageNV21 == null) {
             if (!result.isEmpty()) {
